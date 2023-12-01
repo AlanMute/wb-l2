@@ -74,15 +74,15 @@ func (m *Manager) execute(amount int) {
 
 // как бы это выглядело
 
-func main() {
-	// настраиваем цепочку
-	bankEmployee := &BankEmployee{}
-	supervisor := &Supervisor{}
-	manager := &Manager{}
+// func main() {
+// 	// настраиваем цепочку
+// 	bankEmployee := &BankEmployee{}
+// 	supervisor := &Supervisor{}
+// 	manager := &Manager{}
 
-	supervisor.setNext(manager)
-	bankEmployee.setNext(supervisor)
+// 	supervisor.setNext(manager)
+// 	bankEmployee.setNext(supervisor)
 
-	// делаем запрос
-	bankEmployee.execute(5002) // запрос будет обработан руководителем
-}
+// 	// делаем запрос
+// 	bankEmployee.execute(5002) // запрос будет обработан руководителем
+// }
