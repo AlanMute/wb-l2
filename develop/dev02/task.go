@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
 /*
 === Задача на распаковку ===
 
@@ -18,6 +24,42 @@ package main
 Функция должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
 
-func main() {
+func strUnpack(str string) (string, error) {
+	builder := strings.Builder{}
+	n := len([]rune(str))
+	if str == "" {
+		return "", nil
+	}
+	if str[0] >= '0' && str[0] <= '9' {
+		return "", fmt.Errorf("Некорректная строка!")
+	}
 
+	for i := 0; i < n; i++ {
+		if str[i] >= '0' && str[i] <= '9' {
+			ind := i - 1
+			count := 0
+			for ; i < n && str[i] >= '0' && str[i] <= '9'; i++ {
+				t, _ := strconv.Atoi(string(str[i]))
+				count = 10*count + t
+			}
+
+			for j := 1; j < count; j++ {
+				builder.WriteByte(str[ind])
+			}
+			i--
+			continue
+		}
+		if str[i] == '\\' {
+			builder.WriteByte(str[i+1])
+			i++
+			continue
+		}
+		builder.WriteByte(str[i])
+	}
+
+	return builder.String(), nil
+}
+
+func main() {
+	fmt.Println(strUnpack("qwe\\45"))
 }
