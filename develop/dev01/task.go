@@ -25,6 +25,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("NTP time: %v\n", time)
+	fmt.Printf("Time: %v\n", time)
 	os.Exit(0)
 }
