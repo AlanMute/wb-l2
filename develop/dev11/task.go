@@ -1,5 +1,12 @@
 package main
 
+import (
+	"dev11/internal/service"
+	"dev11/internal/transport"
+	"dev11/internal/transport/handler"
+	"log"
+)
+
 /*
 === HTTP server ===
 
@@ -24,5 +31,12 @@ package main
 */
 
 func main() {
+	s := new(transport.Server)
 
+	serv := service.NewService()
+	hand := handler.NewHandler(serv)
+
+	if err := s.RunServer("8080", hand.InitRoutes()); err != nil {
+		log.Fatal("ERROR start Server!")
+	}
 }
