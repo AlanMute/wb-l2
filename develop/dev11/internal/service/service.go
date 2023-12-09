@@ -2,10 +2,16 @@ package service
 
 import (
 	"dev11/internal/core"
-	"sync"
+	"time"
 )
 
 type Event interface {
+	Create(event *core.Event) uint
+	Update(event *core.Event) error
+	Delete(id uint) error
+	GetByDay(day time.Time) ([]*core.Event, error)
+	GetByWeek(day time.Time) ([]*core.Event, error)
+	GetByMonth(month time.Time) ([]*core.Event, error)
 }
 
 type Service struct {
@@ -14,19 +20,6 @@ type Service struct {
 
 func NewService() *Service {
 	return &Service{
-		Event: NewEventService,
-	}
-}
-
-type EventService struct {
-	mapEvents map[uint]*core.Event
-	last      uint
-	mu        *sync.RWMutex
-}
-
-func NewEventService() *EventService {
-	return &EventService{
-		mapEvents: make(map[uint]*core.Event),
-		last:      0,
+		Event: NewEventService(),
 	}
 }
